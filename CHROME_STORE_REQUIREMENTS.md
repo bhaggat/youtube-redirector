@@ -209,13 +209,13 @@ Made with ❤️ for the YouTube community.
 ### Developer Information
 
 - **Name:** Dhruv Bhagat
-- **Email:** [Your email]
-- **Website:** https://github.com/dhruvbhagat/youtube-redirector
+- **Email:** dhruv.bhagat98@gmail.com
+- **Website:** https://github.com/bhaggat/youtube-redirector
 
 ### Support Information
 
-- **Support URL:** https://github.com/dhruvbhagat/youtube-redirector/issues
-- **Privacy Policy URL:** [Your privacy policy URL]
+- **Support URL:** https://github.com/bhaggat/youtube-redirector/issues
+- **Privacy Policy URL:** https://bhaggat.github.io/youtube-redirector
 
 ### Testing Checklist
 

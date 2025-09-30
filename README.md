@@ -134,13 +134,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Having issues? We're here to help!
 
-1. **Check Issues**: Look at existing [Issues](https://github.com/dhruvbhagat/youtube-redirector/issues)
+1. **Check Issues**: Look at existing [Issues](https://github.com/bhaggat/youtube-redirector/issues)
 2. **Create Issue**: Create a new issue with:
    - Browser version
    - Extension version
    - Steps to reproduce
    - Screenshots if applicable
-3. **Contact**: Reach out to [@dhruvbhagat](https://github.com/dhruvbhagat)
+3. **Contact**: Reach out to [@bhaggat](https://github.com/bhaggat)
 
 ## 📈 Roadmap
 
@@ -189,4 +189,4 @@ _Screenshots will be added once the extension is published_
 
 ---
 
-**Made with ❤️ by [Dhruv Bhagat](https://github.com/dhruvbhagat)**
+**Made with ❤️ by [Dhruv Bhagat](https://github.com/bhaggat)**

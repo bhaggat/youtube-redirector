@@ -49,7 +49,7 @@ Made with ❤️ for the YouTube community.
 
 **Language:** English
 
-**Developer Website:** https://github.com/dhruvbhagat/youtube-redirector
+**Developer Website:** https://github.com/bhaggat/youtube-redirector
 
 ## Store Assets
 
@@ -186,4 +186,3 @@ We may update this privacy policy from time to time. We will notify you of any c
 - Clear, descriptive title
 - Detailed feature list
 - User benefits highlighted
-

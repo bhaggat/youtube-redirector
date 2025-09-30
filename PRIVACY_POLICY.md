@@ -88,8 +88,8 @@ We may update this privacy policy from time to time. We will notify you of any c
 If you have any questions about this privacy policy, please contact us at:
 
 - **Email:** [Your email address]
-- **GitHub:** https://github.com/dhruvbhagat/youtube-redirector
-- **Issues:** https://github.com/dhruvbhagat/youtube-redirector/issues
+- **GitHub:** https://github.com/bhaggat/youtube-redirector
+- **Issues:** https://github.com/bhaggat/youtube-redirector/issues
 
 ## Compliance
 
@@ -103,7 +103,7 @@ This extension complies with:
 ## Open Source
 
 This extension is open source, and you can review the code at:
-https://github.com/dhruvbhagat/youtube-redirector
+https://github.com/bhaggat/youtube-redirector
 
 ---
 
