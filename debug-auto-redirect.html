@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto-Redirect Debug</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        min-height: 100vh;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .debug-section {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      .debug-button {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 10px 5px;
+        transition: all 0.3s ease;
+      }
+      .debug-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      }
+      .status {
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+        font-weight: 500;
+        font-family: monospace;
+        white-space: pre-wrap;
+      }
+      .success {
+        background: rgba(46, 204, 113, 0.2);
+      }
+      .info {
+        background: rgba(52, 152, 219, 0.2);
+      }
+      .warning {
+        background: rgba(241, 196, 15, 0.2);
+      }
+      .error {
+        background: rgba(231, 76, 60, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔧 Auto-Redirect Debug Tool</h1>
+
+      <div class="debug-section">
+        <h2>📋 Debug Steps</h2>
+        <p>Follow these steps to debug the auto-redirect functionality:</p>
+        <ol>
+          <li>Open Chrome DevTools (F12)</li>
+          <li>Go to the Console tab</li>
+          <li>Visit a YouTube video page</li>
+          <li>Look for messages starting with "🎬 Content script:"</li>
+          <li>Start playing the video</li>
+          <li>Check if auto-redirect is enabled in the extension popup</li>
+        </ol>
+      </div>
+
+      <div class="debug-section">
+        <h2>🔍 Storage Check</h2>
+        <p>Check the current auto-redirect setting:</p>
+        <button class="debug-button" onclick="checkStorage()">
+          Check Storage
+        </button>
+        <div id="storageStatus" class="status info">
+          Click button to check storage
+        </div>
+      </div>
+
+      <div class="debug-section">
+        <h2>🎬 Video Element Test</h2>
+        <p>Test if video elements are detected:</p>
+        <button class="debug-button" onclick="testVideoDetection()">
+          Test Video Detection
+        </button>
+        <div id="videoStatus" class="status info">
+          Click button to test video detection
+        </div>
+      </div>
+
+      <div class="debug-section">
+        <h2>🔗 URL Test</h2>
+        <p>Test URL parsing and video ID extraction:</p>
+        <button class="debug-button" onclick="testUrlParsing()">
+          Test URL Parsing
+        </button>
+        <div id="urlStatus" class="status info">
+          Click button to test URL parsing
+        </div>
+      </div>
+
+      <div class="debug-section">
+        <h2>⚙️ Manual Settings</h2>
+        <p>Manually set auto-redirect setting:</p>
+        <button class="debug-button" onclick="enableAutoRedirect()">
+          Enable Auto-Redirect
+        </button>
+        <button class="debug-button" onclick="disableAutoRedirect()">
+          Disable Auto-Redirect
+        </button>
+        <div id="settingsStatus" class="status info">
+          Use buttons to change settings
+        </div>
+      </div>
+
+      <div class="debug-section">
+        <h2>📊 Debug Summary</h2>
+        <div id="summary" class="status info">
+          Run tests above to see summary
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let debugResults = {
+        storage: false,
+        video: false,
+        url: false,
+        settings: false,
+      };
+
+      function checkStorage() {
+        const status = document.getElementById("storageStatus");
+        status.innerHTML = "Checking storage...";
+        status.className = "status warning";
+
+        // Check if we're in extension context
+        if (typeof chrome !== "undefined" && chrome.runtime) {
+          chrome.runtime.sendMessage(
+            { action: "getAutoRedirectSetting" },
+            function (isEnabled) {
+              if (chrome.runtime.lastError) {
+                status.innerHTML = `❌ Error getting setting: ${chrome.runtime.lastError.message}`;
+                status.className = "status error";
+              } else {
+                status.innerHTML = `Auto-redirect setting: ${
+                  isEnabled ? "ENABLED" : "DISABLED"
+                }\nSetting value: ${isEnabled}`;
+                status.className = "status success";
+                debugResults.storage = true;
+              }
+              updateSummary();
+            }
+          );
+        } else {
+          status.innerHTML =
+            "❌ Chrome runtime API not available (not in extension context)";
+          status.className = "status error";
+          updateSummary();
+        }
+      }
+
+      function testVideoDetection() {
+        const status = document.getElementById("videoStatus");
+        status.innerHTML = "Testing video detection...";
+        status.className = "status warning";
+
+        setTimeout(() => {
+          const videos = document.querySelectorAll("video");
+          if (videos.length > 0) {
+            status.innerHTML = `✅ Found ${
+              videos.length
+            } video element(s)\nVideo details:\n- Duration: ${
+              videos[0].duration || "Unknown"
+            }\n- Current time: ${videos[0].currentTime || 0}\n- Paused: ${
+              videos[0].paused
+            }`;
+            status.className = "status success";
+            debugResults.video = true;
+          } else {
+            status.innerHTML = "❌ No video elements found on this page";
+            status.className = "status error";
+          }
+          updateSummary();
+        }, 500);
+      }
+
+      function testUrlParsing() {
+        const status = document.getElementById("urlStatus");
+        status.innerHTML = "Testing URL parsing...";
+        status.className = "status warning";
+
+        setTimeout(() => {
+          try {
+            const url = new URL(window.location.href);
+            const isYouTube = url.hostname === "www.youtube.com";
+            const isVideo = url.pathname.includes("/watch");
+            const videoId = url.searchParams.get("v");
+
+            if (isYouTube && isVideo && videoId) {
+              status.innerHTML = `✅ URL parsing successful\n- Hostname: ${url.hostname}\n- Pathname: ${url.pathname}\n- Video ID: ${videoId}`;
+              status.className = "status success";
+              debugResults.url = true;
+            } else {
+              status.innerHTML = `⚠️ Not on YouTube video page\n- Hostname: ${url.hostname}\n- Pathname: ${url.pathname}\n- Is YouTube: ${isYouTube}\n- Is Video: ${isVideo}`;
+              status.className = "status warning";
+            }
+          } catch (error) {
+            status.innerHTML = `❌ URL parsing error: ${error.message}`;
+            status.className = "status error";
+          }
+          updateSummary();
+        }, 500);
+      }
+
+      function enableAutoRedirect() {
+        const status = document.getElementById("settingsStatus");
+        if (typeof chrome !== "undefined" && chrome.runtime) {
+          chrome.runtime.sendMessage(
+            { action: "setAutoRedirectSetting", enabled: true },
+            function (response) {
+              if (chrome.runtime.lastError) {
+                status.innerHTML = `❌ Error: ${chrome.runtime.lastError.message}`;
+                status.className = "status error";
+              } else {
+                status.innerHTML = "✅ Auto-redirect enabled";
+                status.className = "status success";
+                debugResults.settings = true;
+              }
+              updateSummary();
+            }
+          );
+        } else {
+          status.innerHTML = "❌ Chrome runtime API not available";
+          status.className = "status error";
+        }
+      }
+
+      function disableAutoRedirect() {
+        const status = document.getElementById("settingsStatus");
+        if (typeof chrome !== "undefined" && chrome.runtime) {
+          chrome.runtime.sendMessage(
+            { action: "setAutoRedirectSetting", enabled: false },
+            function (response) {
+              if (chrome.runtime.lastError) {
+                status.innerHTML = `❌ Error: ${chrome.runtime.lastError.message}`;
+                status.className = "status error";
+              } else {
+                status.innerHTML = "❌ Auto-redirect disabled";
+                status.className = "status warning";
+                debugResults.settings = true;
+              }
+              updateSummary();
+            }
+          );
+        } else {
+          status.innerHTML = "❌ Chrome runtime API not available";
+          status.className = "status error";
+        }
+      }
+
+      function updateSummary() {
+        const summary = document.getElementById("summary");
+        const total = Object.keys(debugResults).length;
+        const passed = Object.values(debugResults).filter(Boolean).length;
+
+        let summaryText = `Debug Results: ${passed}/${total} tests passed\n\n`;
+        summaryText += `Storage Check: ${debugResults.storage ? "✅" : "❌"}\n`;
+        summaryText += `Video Detection: ${debugResults.video ? "✅" : "❌"}\n`;
+        summaryText += `URL Parsing: ${debugResults.url ? "✅" : "❌"}\n`;
+        summaryText += `Settings: ${debugResults.settings ? "✅" : "❌"}\n\n`;
+
+        if (passed === total) {
+          summaryText += "🎉 All tests passed! Auto-redirect should work.";
+          summary.className = "status success";
+        } else if (passed > 0) {
+          summaryText += "⚠️ Some tests failed. Check the issues above.";
+          summary.className = "status warning";
+        } else {
+          summaryText += "❌ All tests failed. Check extension installation.";
+          summary.className = "status error";
+        }
+
+        summary.innerHTML = summaryText;
+      }
+    </script>
+  </body>
+</html>

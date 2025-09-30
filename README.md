@@ -4,7 +4,8 @@ A beautiful Chrome extension that provides one-click redirection from regular Yo
 
 ## ✨ Features
 
-- **🎯 One-Click Redirection**: Simple button interface for instant redirection
+- **🤖 Auto-Redirect**: Automatically redirects when you start playing a video
+- **🎯 Manual Override**: Toggle between automatic and manual redirection modes
 - **🧠 Smart Detection**: Automatically detects your current page state
 - **🎨 Modern UI**: Beautiful gradient design with smooth animations
 - **📱 Responsive**: Works perfectly on all screen sizes
@@ -12,6 +13,15 @@ A beautiful Chrome extension that provides one-click redirection from regular Yo
 - **⚡ Fast & Lightweight**: Minimal resource usage, instant response
 
 ## 🚀 How It Works
+
+### Automatic Mode (Default)
+
+1. **Visit YouTube**: Go to any YouTube video page
+2. **Start Playing**: Simply start playing any video
+3. **Auto-Redirect**: The extension automatically redirects you to enhanced YouTube
+4. **Enjoy**: Experience the enhanced YouTube interface
+
+### Manual Mode
 
 1. **Visit YouTube**: Go to any YouTube video page
 2. **Click Extension**: Click the extension icon in your browser toolbar
@@ -40,24 +50,24 @@ The extension will be available on the Chrome Web Store soon.
 The extension intelligently detects your current page:
 
 - **✅ Already Enhanced**: Shows when you're already on enhanced YouTube
-- **🎬 Ready to Redirect**: When you're on a YouTube video page
+- **🤖 Auto-Redirect Enabled**: When auto-redirect is on and you're on a video page
+- **🎬 Ready to Redirect**: When you're on a YouTube video page (manual mode)
 - **⚠️ Navigate to Video**: When you're on YouTube but not a video page
 - **❌ Not on YouTube**: When you need to go to YouTube first
 
-### One-Click Operation
+### Settings & Controls
 
-1. Click the extension icon
-2. See your current status
-3. Click the redirect button if available
-4. Enjoy the enhanced experience!
+- **Toggle Auto-Redirect**: Use the toggle switch to enable/disable automatic redirection
+- **Manual Override**: Even with auto-redirect enabled, you can still manually redirect
+- **Smart Prevention**: Prevents redirecting the same video multiple times
 
 ## 🔧 Technical Details
 
 - **Manifest Version**: 3 (Latest Chrome standard)
-- **Permissions**: `tabs` only (minimal permissions)
-- **Content Scripts**: None (popup-based for better performance)
+- **Permissions**: `tabs`, `storage`, `activeTab` (minimal permissions)
+- **Content Scripts**: Automatic redirection detection on YouTube video pages
 - **Background Scripts**: None (event-driven architecture)
-- **File Size**: < 50KB (ultra-lightweight)
+- **File Size**: < 60KB (ultra-lightweight)
 
 ## 🔒 Privacy & Security
 
@@ -76,13 +86,14 @@ This extension is designed with privacy in mind:
 
 ```
 ├── manifest.json          # Extension configuration
-├── popup.html            # Modern popup interface
-├── popup.js             # Enhanced popup functionality
-├── icon16.png           # Extension icons (16x16)
-├── icon48.png           # Extension icons (48x48)
-├── icon128.png          # Extension icons (128x128)
-├── icon.svg             # Vector icon source
-└── README.md           # Documentation
+├── popup.html            # Modern popup interface with settings
+├── popup.js              # Enhanced popup functionality with automation
+├── content.js            # Content script for automatic redirection
+├── icon16.png            # Extension icons (16x16)
+├── icon48.png            # Extension icons (48x48)
+├── icon128.png           # Extension icons (128x128)
+├── icon.svg              # Vector icon source
+└── README.md            # Documentation
 ```
 
 ### Building
@@ -149,7 +160,17 @@ Having issues? We're here to help!
 
 ## 📊 Changelog
 
-### Version 1.0.0 (Current)
+### Version 1.1.0 (Current)
+
+- 🤖 **NEW**: Automatic redirection when video starts playing
+- 🎛️ **NEW**: Toggle between automatic and manual modes
+- 🎯 One-click redirection with button interface
+- 🧠 Smart page state detection
+- 🎨 Modern gradient UI design with settings panel
+- 🔒 Privacy-first approach
+- ⚡ Ultra-lightweight (< 60KB)
+
+### Version 1.0.0 (Previous)
 
 - ✨ Initial release
 - 🎯 One-click redirection with button interface

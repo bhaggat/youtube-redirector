@@ -135,6 +135,66 @@
           opacity: 1;
         }
       }
+
+      .settings {
+        margin: 16px 0;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+      }
+
+      .setting-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .toggle-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .toggle-container input[type="checkbox"] {
+        display: none;
+      }
+
+      .toggle-slider {
+        position: relative;
+        width: 40px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        margin-right: 8px;
+      }
+
+      .toggle-slider:before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .toggle-container input[type="checkbox"]:checked + .toggle-slider {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      }
+
+      .toggle-container input[type="checkbox"]:checked + .toggle-slider:before {
+        transform: translateX(20px);
+      }
+
+      .toggle-label {
+        font-size: 12px;
+        font-weight: 500;
+        opacity: 0.9;
+      }
     </style>
   </head>
   <body>
@@ -154,10 +214,22 @@
         <span id="buttonText">Redirect to Enhanced YouTube</span>
       </button>
 
+      <div class="settings">
+        <div class="setting-item">
+          <label class="toggle-container">
+            <input type="checkbox" id="autoRedirectToggle" />
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Auto-redirect on video play</span>
+          </label>
+        </div>
+      </div>
+
       <div id="info" class="info" style="display: none">
         <strong>How it works:</strong><br />
         Click the button above to redirect from www.youtube.com to
-        www.youtube.com. for an enhanced viewing experience.
+        www.youtube.com. for an enhanced viewing experience.<br /><br />
+        <strong>Auto-redirect:</strong> When enabled, videos will automatically
+        redirect to the enhanced version when you start playing them.
       </div>
     </div>
 

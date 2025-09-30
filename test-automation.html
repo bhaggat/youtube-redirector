@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Automation Test</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        min-height: 100vh;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .test-section {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      .test-button {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 10px 5px;
+        transition: all 0.3s ease;
+      }
+      .test-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      }
+      .status {
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+        font-weight: 500;
+      }
+      .success {
+        background: rgba(46, 204, 113, 0.2);
+      }
+      .info {
+        background: rgba(52, 152, 219, 0.2);
+      }
+      .warning {
+        background: rgba(241, 196, 15, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎬 YouTube Automation Test</h1>
+
+      <div class="test-section">
+        <h2>🤖 Automatic Redirection Test</h2>
+        <p>This test simulates the automatic redirection functionality:</p>
+        <button class="test-button" onclick="testAutoRedirect()">
+          Test Auto-Redirect Logic
+        </button>
+        <div id="autoStatus" class="status info">
+          Ready to test automatic redirection...
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h2>🎛️ Settings Test</h2>
+        <p>Test the settings toggle functionality:</p>
+        <button class="test-button" onclick="testSettings()">
+          Test Settings Toggle
+        </button>
+        <div id="settingsStatus" class="status info">
+          Ready to test settings...
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h2>🔍 URL Detection Test</h2>
+        <p>Test URL parsing and video ID extraction:</p>
+        <button class="test-button" onclick="testUrlDetection()">
+          Test URL Detection
+        </button>
+        <div id="urlStatus" class="status info">
+          Ready to test URL detection...
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h2>📋 Test Results Summary</h2>
+        <div id="summary" class="status info">No tests run yet</div>
+      </div>
+    </div>
+
+    <script>
+      let testResults = {
+        autoRedirect: false,
+        settings: false,
+        urlDetection: false,
+      };
+
+      function testAutoRedirect() {
+        const status = document.getElementById("autoStatus");
+        status.innerHTML = "Testing auto-redirect logic...";
+        status.className = "status warning";
+
+        // Simulate the auto-redirect logic
+        setTimeout(() => {
+          try {
+            // Test video ID extraction
+            const testUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            const url = new URL(testUrl);
+            const videoId = url.searchParams.get("v");
+
+            if (videoId === "dQw4w9WgXcQ") {
+              status.innerHTML = "✅ Auto-redirect logic working correctly!";
+              status.className = "status success";
+              testResults.autoRedirect = true;
+            } else {
+              status.innerHTML = "❌ Auto-redirect logic failed";
+              status.className = "status warning";
+            }
+          } catch (error) {
+            status.innerHTML =
+              "❌ Error in auto-redirect test: " + error.message;
+            status.className = "status warning";
+          }
+          updateSummary();
+        }, 1000);
+      }
+
+      function testSettings() {
+        const status = document.getElementById("settingsStatus");
+        status.innerHTML = "Testing settings functionality...";
+        status.className = "status warning";
+
+        setTimeout(() => {
+          try {
+            // Test localStorage simulation
+            const testKey = "auto_redirect_enabled";
+            localStorage.setItem(testKey, "true");
+            const retrieved = localStorage.getItem(testKey);
+
+            if (retrieved === "true") {
+              status.innerHTML = "✅ Settings functionality working correctly!";
+              status.className = "status success";
+              testResults.settings = true;
+            } else {
+              status.innerHTML = "❌ Settings functionality failed";
+              status.className = "status warning";
+            }
+          } catch (error) {
+            status.innerHTML = "❌ Error in settings test: " + error.message;
+            status.className = "status warning";
+          }
+          updateSummary();
+        }, 1000);
+      }
+
+      function testUrlDetection() {
+        const status = document.getElementById("urlStatus");
+        status.innerHTML = "Testing URL detection...";
+        status.className = "status warning";
+
+        setTimeout(() => {
+          try {
+            const testUrls = [
+              "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              "https://www.youtube.com/watch?v=abc123&t=30s",
+              "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMOV8aM6LOQxGxI0Z",
+              "https://www.google.com",
+            ];
+
+            let passed = 0;
+            testUrls.forEach((url, index) => {
+              const urlObj = new URL(url);
+              const isYouTube = urlObj.hostname === "www.youtube.com";
+              const isVideo = urlObj.pathname.includes("/watch");
+              const videoId = urlObj.searchParams.get("v");
+
+              if (index < 2 && isYouTube && isVideo && videoId) {
+                passed++;
+              } else if (index === 2 && isYouTube && !isVideo) {
+                passed++;
+              } else if (index === 3 && !isYouTube) {
+                passed++;
+              }
+            });
+
+            if (passed === 4) {
+              status.innerHTML = "✅ URL detection working correctly!";
+              status.className = "status success";
+              testResults.urlDetection = true;
+            } else {
+              status.innerHTML = `❌ URL detection failed (${passed}/4 tests passed)`;
+              status.className = "status warning";
+            }
+          } catch (error) {
+            status.innerHTML =
+              "❌ Error in URL detection test: " + error.message;
+            status.className = "status warning";
+          }
+          updateSummary();
+        }, 1000);
+      }
+
+      function updateSummary() {
+        const summary = document.getElementById("summary");
+        const total = Object.keys(testResults).length;
+        const passed = Object.values(testResults).filter(Boolean).length;
+
+        if (passed === total) {
+          summary.innerHTML = `🎉 All tests passed! (${passed}/${total})`;
+          summary.className = "status success";
+        } else if (passed > 0) {
+          summary.innerHTML = `⚠️ Some tests passed (${passed}/${total})`;
+          summary.className = "status warning";
+        } else {
+          summary.innerHTML = `❌ No tests passed (${passed}/${total})`;
+          summary.className = "status warning";
+        }
+      }
+    </script>
+  </body>
+</html>

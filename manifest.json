@@ -5,7 +5,17 @@
   "description": "Easily redirect from regular YouTube to enhanced YouTube experience with one click. Perfect for users who want the enhanced viewing experience.",
   "author": "Dhruv Bhagat",
   "homepage_url": "https://github.com/bhaggat/youtube-redirector.git",
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "activeTab"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/watch*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_title": "Redirect to Enhanced YouTube"
