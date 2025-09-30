@@ -1,17 +1,48 @@
 <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#4ecdc4;stop-opacity:1" />
+    <!-- YouTube red gradient -->
+    <linearGradient id="youtubeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cc0000;stop-opacity:1" />
     </linearGradient>
+    
+    <!-- Enhancement sparkle gradient -->
+    <linearGradient id="sparkleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffed4e;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
   </defs>
   
-  <!-- Background circle -->
-  <circle cx="64" cy="64" r="60" fill="url(#grad1)" stroke="#333" stroke-width="2"/>
+  <!-- Background circle with YouTube red -->
+  <circle cx="64" cy="64" r="58" fill="url(#youtubeGradient)" stroke="#ffffff" stroke-width="4" filter="url(#shadow)"/>
   
-  <!-- Arrow pointing right -->
-  <path d="M35 64 L75 64 M65 54 L75 64 L65 74" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- YouTube play button -->
+  <path d="M45 40 L45 88 L85 64 Z" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
   
-  <!-- URL text representation -->
-  <text x="64" y="90" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">URL</text>
+  <!-- Enhancement sparkle/star -->
+  <g transform="translate(85, 35)">
+    <path d="M0,-8 L2,-2 L8,-2 L3,1 L5,7 L0,4 L-5,7 L-3,1 L-8,-2 L-2,-2 Z" 
+          fill="url(#sparkleGradient)" 
+          stroke="#ffffff" 
+          stroke-width="1"/>
+  </g>
+  
+  <!-- Small enhancement sparkles -->
+  <circle cx="95" cy="25" r="3" fill="url(#sparkleGradient)" opacity="0.8"/>
+  <circle cx="25" cy="95" r="2" fill="url(#sparkleGradient)" opacity="0.6"/>
+  <circle cx="100" cy="85" r="2.5" fill="url(#sparkleGradient)" opacity="0.7"/>
+  
+  <!-- Redirect arrow (subtle) -->
+  <path d="M20 20 L30 20 M25 15 L30 20 L25 25" 
+        stroke="#ffffff" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none" 
+        opacity="0.8"/>
 </svg>

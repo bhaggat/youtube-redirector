@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouTube Enhanced Redirector",
   "version": "1.0.0",
-  "description": "Easily redirect from regular YouTube to enhanced YouTube experience with one click. Perfect for users who want the enhanced viewing experience.",
+  "description": "Redirect from regular YouTube to enhanced YouTube experience with one click. Perfect for enhanced viewing.",
   "author": "Dhruv Bhagat",
   "homepage_url": "https://github.com/bhaggat/youtube-redirector.git",
   "permissions": ["tabs", "storage", "activeTab"],
@@ -27,5 +27,6 @@
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
-  }
+  },
+  "privacy_policy": "https://bhaggat.github.io/youtube-redirector/"
 }
